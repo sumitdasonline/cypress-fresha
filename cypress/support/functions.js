@@ -1,5 +1,10 @@
 import "../support/commands";
 
+/**
+ * Generate a random String
+ * @param length
+ * @return Random String
+ */
 export function randomStringOf(length) {
     let result = '';
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
@@ -11,31 +16,19 @@ export function randomStringOf(length) {
     return result;
 }
 
-
+/**
+ * Delete all customers
+ */
 export function deleteAllCustomers() {
-    cy.customerSearch().each(($element) => {
-        const id = $element.id
-        cy.deleteCustomer(id)
+    cy.customerSearch().each(($data) => {
+        cy.deleteCustomer($data.id)
     })
 }
 
-
-export function getAllCustomers() {
-    cy.request(
-        {
-            method: 'GET',
-            url: 'https://partners-api-staging.dev.fresha.io/v2/customer-search?offset=0&limit=30&query=&genders=&customer-type=&sort-order=desc&sort-by=first-name',
-            headers: {
-                Accept: 'application/vnd.api+json',
-                'Content-Type': 'application/vnd.api+json'
-            },
-        }
-    ).then(response => {
-        expect(response.status).to.eq(200)
-        return response.body.data
-    })
-}
-
+/**
+ * Verify if the given customers exists in Customer search API response
+ * @param customers Array of customers
+ */
 export function verifyAllCustomersExists(...customers) {
     let flag = customers.length
     cy.customerSearch().each(($data) => {
@@ -48,7 +41,11 @@ export function verifyAllCustomersExists(...customers) {
         expect(flag).to.eq(0)
     })
 }
-
+//TODO: Simplify these 2 functions
+/**
+ * Verify if one of the given customers got merged into another by verifying that only one exists among two (Duh!)
+ * @param customers Array of customers
+ */
 export function verifyOnlyOneExist(...customers) {
     let flag = customers.length
     cy.customerSearch().each(($data) => {

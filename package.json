@@ -1,13 +1,16 @@
 {
   "name": "cypress-fresha",
   "version": "1.0.0",
-  "description": "",
+  "description": "Fresha friends",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "run:test": "./node_modules/.bin/cypress run --config-file cypress_test.json",
+    "run:staging": "./node_modules/.bin/cypress run --config-file cypress_staging.json",
+    "open:test": "./node_modules/.bin/cypress open --config-file cypress_test.json",
+    "open:staging": "./node_modules/.bin/cypress open --config-file cypress_staging.json"
   },
   "keywords": [],
-  "author": "",
+  "author": "Sumit Das",
   "license": "ISC",
   "devDependencies": {
     "cypress": "^8.5.0",

@@ -11,10 +11,10 @@ require('cypress-xpath')
 describe('fresha simple test', () => {
     before('Before Each', () => {
         cy.TestStep('Visit BaseURL')
-            .visit('https://partners-staging.dev.fresha.io/')
+            .visit('/')
 
         cy.TestStep('Enter email')
-            .get(login.emailAddress)
+            .get(login.emailAddress,{ timeout: 60000 })
             .type('rndmeml@gmail.com')
             .get(login.continue)
             .click()
@@ -26,19 +26,18 @@ describe('fresha simple test', () => {
 
     })
 
-    it('Duplicated Client Banner', () => {
+    it('Client banner happy flow', () => {
 
         let firstName = randomStringOf(5)
         let lastName = randomStringOf(5)
         let email = firstName + '@email.com'
 
         cy.intercept('GET', '/customer-duplicates/existence-check').as('customerDuplicateExistenceCheck')
-        cy.intercept('GET', '/customer-avatars*').as('customerAvatarLoad')
         cy.intercept('GET', '/v2/customer-search*').as('customerSearch')
 
 
         cy.TestStep('Left Panel should be visible')
-            .get(leftPanel.clients).should('be.visible')
+            .get(leftPanel.clients,{ timeout: 60000 }).should('be.visible')
 
         cy.TestStep('Create 2 duplicate customers via API')
             .createCustomer(firstName, lastName, email).as('customer1')
@@ -47,7 +46,6 @@ describe('fresha simple test', () => {
         cy.TestStep('Navigate to Client page')
             .get(leftPanel.clients).click()
             .wait('@customerDuplicateExistenceCheck')
-            .wait('@customerAvatarLoad')
             .wait('@customerSearch')
             .then(() => {
                 cy.get('@customer1').then(($customer1) => {
@@ -82,6 +80,7 @@ describe('fresha simple test', () => {
 
         cy.TestStep('Validate the success toast message is visible')
             .get(clients.toastMessage).should('be.visible')
+
         cy.TestStep('Validate duplicate message disappears')
             .get(clients.duplicateIndicator).should('not.exist')
 
@@ -124,4 +123,34 @@ describe('fresha simple test', () => {
             deleteAllCustomers()
         })
     })
+
+    it('When there is nothing to merge verify the merge banner does not show', function () {
+
+    });
+
+    it('Verify when there is more than one merge eligible customer', function () {
+
+    });
+
+    it('Verify when the merge eligible customer is not on the first page', function () {
+
+    });
+
+    it('Verify when the service which is suppose to merge the endpoint is down, and user is shown a proper message', function () {
+
+    });
+
+    it('Verify when in process of merge, and presses the button, someone else who has the same rights have already merged the clients and this user is shown a proper message', function () {
+
+    });
+
+    it('Verify what information is retained when 2 different client is merged based on the phone number / email (Can also be part of low level tests and not here)', function () {
+
+    });
+
+    it('Verify the Merge functionality when user tries to merge from the Client Drawer', function () {
+
+    });
+
+
 })

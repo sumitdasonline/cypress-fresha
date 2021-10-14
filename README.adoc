@@ -1,0 +1,29 @@
+= Cypress Project
+Firstname Lastname <author@asciidoctor.org>
+3.0, July 29, 2022: AsciiDoc article template
+:toc:
+:icons: font
+:url-quickref: https://docs.asciidoctor.org/asciidoc/latest/syntax-quick-reference/
+
+
+So this is the project. Look nowhere else.
+
+== Description
+
+* This one currently has one very basic end-to-end test for a very specific functionality. There are few blank tests.
+
+* Used NPM build tool along with Javascript.
+
+== Running the tests
+
+* Very simple, since the environment I used to make the test was Staging, simply `npm run run:staging` would run all the tests
+
+* If you don't believe what your console says and want to Open Cypress and see it for your eyes then `npm run run:staging`
+
+* Off course if you want to run the test in Test environment then change `staging` to `test` and fail miserably as I have the username and password hardcoded.
+
+
+[Bugs bunny,Bug's Bunny]
+____
+That's not all folks!
+____

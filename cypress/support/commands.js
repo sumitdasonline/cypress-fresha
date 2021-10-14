@@ -1,4 +1,4 @@
-Cypress.Commands.add('TestStep', { prevSubject: 'optional' }, (subject, stepDefinition) => {
+Cypress.Commands.add('TestStep', {prevSubject: 'optional'}, (subject, stepDefinition) => {
     if (subject === undefined) {
         return cy.task('log', stepDefinition);
     }
@@ -9,7 +9,7 @@ Cypress.Commands.add('TestStep', { prevSubject: 'optional' }, (subject, stepDefi
 Cypress.Commands.add('createCustomer', (firstName, lastName, email) => {
     cy.request({
         method: 'POST',
-        url: 'https://partners-api-staging.dev.fresha.io/v2/customers',
+        url: Cypress.env('apiEndpoint') + '/v2/customers',
         headers: {
             Accept: 'application/vnd.api+json',
             'Content-Type': 'application/vnd.api+json'
@@ -70,15 +70,14 @@ Cypress.Commands.add('createCustomer', (firstName, lastName, email) => {
 Cypress.Commands.add('deleteCustomer', (customerId) => {
     cy.request(
         {
-        failOnStatusCode: false,
-        method: 'DELETE',
-        url: 'https://partners-api-staging.dev.fresha.io/customers/' + customerId,
-        headers: {
-            Accept: 'application/vnd.api+json',
-            'Content-Type': 'application/vnd.api+json'
+            failOnStatusCode: false,
+            method: 'DELETE',
+            url: Cypress.env('apiEndpoint') + '/customers/' + customerId,
+            headers: {
+                Accept: 'application/vnd.api+json',
+                'Content-Type': 'application/vnd.api+json'
             },
         }
-
     )
 })
 

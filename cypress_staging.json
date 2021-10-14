@@ -1,0 +1,10 @@
+{
+  "defaultCommandTimeout": 10000,
+  "baseUrl": "https://partners-staging.dev.fresha.io",
+  "retries": { "runMode": 2, "openMode": 0 },
+  "watchForFileChanges": false,
+  "video": false,
+  "env": {
+    "apiEndpoint": "https://partners-api-staging.dev.fresha.io"
+  }
+}
